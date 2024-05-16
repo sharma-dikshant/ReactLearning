@@ -1,0 +1,24 @@
+in terminal
+locate the folder
+:- Always try to use cmd for creating the app but after than you can use vscode in-built terminal for running and stopping the app
+npx create-react-app pizza-menu
+running at version 5
+npx create-react-app@5 pizza-menu
+
+to start :- npm start
+
+
+// creating first react component
+
+in src/index.js 
+
+    import React from "react";
+    import ReactDOM from "react-dom/client";
+
+    function App(){
+        return <h1> Hello React </h1>;
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+
+    root.render(<App />);

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pure React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- including react libary form react.dev > learn > installation > try React Locally > download HTML file-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    crossorigin
+  ></script>
+
+  <!-- creating first component -->
+  <script>
+    function App() {
+      // jsx is not working here
+
+      //   const time = new Date().toLocaleTimeString();
+
+      const [time, updateTime] = React.useState(
+        new Date().toLocaleTimeString()
+      );
+
+      React.useEffect(function () {
+        setInterval(() => {
+          updateTime(new Date().toLocaleTimeString());
+        }, 1000);
+      }, []);
+
+      return React.createElement("header", null, `hello React ! ${time}`); //react object is come from first script to create header element
+      // but this will not render it on the page
+      // .createElement(element, props, child)
+      // but time is not updating
+      // to update time we use the cocept of state
+
+      // to reflect and update the time we have to use effect
+    }
+
+    // render root
+    const root = ReactDOM.createRoot(document.querySelector("#root")); //created root
+    root.render(React.createElement(App));
+    //now header is visible in root in html
+  </script>
+</html>
