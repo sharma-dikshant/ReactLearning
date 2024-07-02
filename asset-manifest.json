@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sharma-dikshant/ReactLearning.git/static/css/main.45fe4e4c.css",
+    "main.js": "/sharma-dikshant/ReactLearning.git/static/js/main.415fc908.js",
+    "index.html": "/sharma-dikshant/ReactLearning.git/index.html",
+    "main.45fe4e4c.css.map": "/sharma-dikshant/ReactLearning.git/static/css/main.45fe4e4c.css.map",
+    "main.415fc908.js.map": "/sharma-dikshant/ReactLearning.git/static/js/main.415fc908.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.45fe4e4c.css",
+    "static/js/main.415fc908.js"
+  ]
+}
