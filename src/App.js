@@ -22,14 +22,22 @@ export default function App() {
     // so we have to return a new array
     setItems((prevItems) => {
       return [...prevItems, item];
-    })
+    });
   }
+
+  function handleDeleteItems(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
+  // so the we want to call this function when we press the cross button
+  // the cross button is in PackingList>Item
+  // so we have to pass this function as a prop to the PackingList component and from PackingList to Items
 
   return (
     <div className="app">
       <Logo />
       <Form onHandleAddItems={handleAddItems} />
-      <PackingList items={items}/>
+      <PackingList items={items} onDeleteItems={handleDeleteItems} />
       <Stats />
     </div>
   );
@@ -42,8 +50,6 @@ function Logo() {
 function Form(props) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-
-
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -90,7 +96,7 @@ function PackingList(props) {
     <div className="list">
       <ul>
         {props.items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item item={item} key={item.id} onDeleteItems={props.onDeleteItems} />
         ))}
       </ul>
     </div>
@@ -103,7 +109,7 @@ function Item(props) {
       <span style={props.item.packed ? { textDecoration: "line-through" } : {}}>
         {props.item.quantity} {props.item.description}{" "}
       </span>
-      <button>❌</button>
+      <button onClick={() => props.onDeleteItems(props.item.id)}>❌</button>
     </li>
   );
 }
