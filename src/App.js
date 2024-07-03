@@ -1,20 +1,5 @@
 import { useState } from "react";
 
-const initialItems = [
-  {
-    id: 1,
-    description: "passports",
-    quantity: 2,
-    packed: true,
-  },
-  {
-    id: 2,
-    description: "mobile charger",
-    quantity: 2,
-    packed: false,
-  },
-];
-
 export default function App() {
   const [items, setItems] = useState([]);
   function handleAddItems(item) {
@@ -29,6 +14,12 @@ export default function App() {
     setItems(items.filter((item) => item.id !== id));
   }
 
+  function handleTogglePackedItem(id) {
+    setItems(
+      items.map(item => item.id === id ? { ...item, packed: !item.packed } : item )
+    );
+  }
+
   // so the we want to call this function when we press the cross button
   // the cross button is in PackingList>Item
   // so we have to pass this function as a prop to the PackingList component and from PackingList to Items
@@ -37,7 +28,11 @@ export default function App() {
     <div className="app">
       <Logo />
       <Form onHandleAddItems={handleAddItems} />
-      <PackingList items={items} onDeleteItems={handleDeleteItems} />
+      <PackingList
+        items={items}
+        onDeleteItems={handleDeleteItems}
+        onHandleTogglePackedItem={handleTogglePackedItem}
+      />
       <Stats />
     </div>
   );
@@ -96,7 +91,12 @@ function PackingList(props) {
     <div className="list">
       <ul>
         {props.items.map((item) => (
-          <Item item={item} key={item.id} onDeleteItems={props.onDeleteItems} />
+          <Item
+            item={item}
+            key={item.id}
+            onDeleteItems={props.onDeleteItems}
+            onHandleTogglePackedItem={props.onHandleTogglePackedItem}
+          />
         ))}
       </ul>
     </div>
@@ -106,6 +106,11 @@ function PackingList(props) {
 function Item(props) {
   return (
     <li>
+      <input
+        type="checkbox"
+        value={props.item.packed}
+        onChange={() => props.onHandleTogglePackedItem(props.item.id)}
+      ></input>
       <span style={props.item.packed ? { textDecoration: "line-through" } : {}}>
         {props.item.quantity} {props.item.description}{" "}
       </span>
