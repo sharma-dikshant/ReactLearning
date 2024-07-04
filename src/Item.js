@@ -5,6 +5,7 @@ export function Item(props) {
         type="checkbox"
         value={props.item.packed}
         onChange={() => props.onHandleTogglePackedItem(props.item.id)}
+        defaultChecked={props.item.packed}
       ></input>
       <span style={props.item.packed ? { textDecoration: "line-through" } : {}}>
         {props.item.quantity} {props.item.description}{" "}
