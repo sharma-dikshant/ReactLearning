@@ -22,6 +22,10 @@ export default function App() {
     );
   }
 
+  function handleClearItems() {
+    setItems([]);
+  }
+
   // so the we want to call this function when we press the cross button
   // the cross button is in PackingList>Item
   // so we have to pass this function as a prop to the PackingList component and from PackingList to Items
@@ -34,6 +38,7 @@ export default function App() {
         items={items}
         onDeleteItems={handleDeleteItems}
         onHandleTogglePackedItem={handleTogglePackedItem}
+        onHandleClearItems={handleClearItems}
       />
       <Stats items={items} />
     </div>
@@ -122,6 +127,7 @@ function PackingList(props) {
           <option value="packed">Sort by packed</option>
           <option value="description">Sort by description</option>
         </select>
+        <button onClick={props.onHandleClearItems}>Clear List</button>
       </div>
     </div>
   );
