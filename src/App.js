@@ -31,12 +31,23 @@ function Button({ children, onclick }) {
 
 export default function App() {
   const [showAddFriendForm, setShowAddFriendForm] = useState(false);
+  const [friends, setFriends] = useState(initialFriends);
+
+  function handleAddFriend(friend) {
+    setFriends((prevFriends) => [...prevFriends, friend]);
+    setShowAddFriendForm(false);
+  }
 
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList />
-        {showAddFriendForm && <FormAddFriend />}
+        <FriendsList friends={friends} />
+        {showAddFriendForm && (
+          <FormAddFriend
+            onhandleAddFriend={handleAddFriend}
+            // onShowAddFriendForm={setShowAddFriendForm}
+          />
+        )}
         <Button
           onclick={() => {
             setShowAddFriendForm((show) => !show);
@@ -50,8 +61,7 @@ export default function App() {
   );
 }
 
-function FriendsList() {
-  const friends = initialFriends;
+function FriendsList({ friends }) {
   return (
     <ul>
       {friends.map((friend) => (
@@ -82,7 +92,7 @@ function Friend({ friend }) {
   );
 }
 
-function FormAddFriend() {
+function FormAddFriend({ onhandleAddFriend, onShowAddFriendForm }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48");
 
@@ -99,6 +109,8 @@ function FormAddFriend() {
       balance: 0,
     };
 
+    onhandleAddFriend(newFriend);
+    // onShowAddFriendForm(false);
     console.log(newFriend);
 
     setName("");
